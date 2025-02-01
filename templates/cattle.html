@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cattle Care Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('https://source.unsplash.com/1600x900/?farm');
+      background-size: cover;
+      background-position: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .alert {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0.5;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 bg-opacity-80">
+  <header class="bg-green-600 text-white text-center p-5 text-2xl font-bold shadow-lg">
+    Cattle Care Monitoring Dashboard
+  </header>
+  <main class="p-5 max-w-4xl mx-auto">
+
+    <section class="bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold text-green-700">Cattle Health Status</h2>
+      <div class="mt-4 grid grid-cols-2 gap-4">
+        <div class="p-4 border rounded-lg shadow-md text-center">
+          <h3 class="font-semibold">Temperature</h3>
+          <p class="text-lg font-bold text-red-500" id="temperature">37°C</p>
+        </div>
+        <div class="p-4 border rounded-lg shadow-md text-center">
+          <h3 class="font-semibold">Heart Rate</h3>
+          <p class="text-lg font-bold text-blue-500" id="heart-rate">72 BPM</p>
+        </div>
+      </div>
+      <div class="mt-4 p-4 border rounded-lg bg-red-100 text-red-700 hidden alert" id="alert-box">
+        <p id="alert-message">Warning: High Temperature Detected!</p>
+      </div>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow-md mt-6">
+      <h2 class="text-xl font-semibold text-green-700">Gobar Gas Management</h2>
+      <div class="mt-4 grid grid-cols-2 gap-4">
+        <button id="collect-gobar" class="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition">Stir
+          Gobar</button>
+        <button id="convey-gobar" class="bg-green-600 text-white p-3 rounded-lg hover:bg-green-700 transition">Convey
+          Gobar</button>
+      </div>
+      <p id="gobar-status" class="mt-4 text-lg font-bold text-gray-700 text-center">Status: Idle</p>
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow-md mt-6 text-center">
+      <h2 class="text-xl font-semibold text-green-700">Live Activity</h2>
+      <p class="text-gray-600">Monitoring cattle in real-time...</p>
+      <div class="mt-4 flex justify-center">
+        <img src="https://source.unsplash.com/400x250/?cow,farm" alt="Live Cattle Monitoring"
+          class="rounded-lg shadow-lg">
+      </div>
+    </section>
+
+  </main>
+  <script>
+    function updateCattleData() {
+      fetch('http://localhost:5000/api/sensor-data')
+      .then(response => response.json())
+      .then(data => {
+      let temperature = data.temperature;
+      let heartRate = data.heartRate;
+
+      document.getElementById('temperature').innerText = temperature + '°C';
+      document.getElementById('heart-rate').innerText = heartRate + ' BPM';
+
+      let alertBox = document.getElementById('alert-box');
+      let alertMessage = document.getElementById('alert-message');
+
+      if (temperature > 39) {
+        alertBox.classList.remove('hidden');
+        alertMessage.innerText = 'Warning: High Temperature Detected!';
+      } else {
+        alertBox.classList.add('hidden');
+      }
+      })
+      .catch(error => console.error('Error fetching cattle data:', error));
+    }
+
+    //setInterval(updateCattleData, 3000);
+
+
+    function handleGobarAction(action, statusMessage, completeMessage, duration, bodyData) {
+      document.getElementById('gobar-status').innerText = statusMessage;
+      setTimeout(() => {
+      document.getElementById('gobar-status').innerText = completeMessage;
+      }, duration);
+
+      fetch('http://localhost:5000/send-data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(bodyData)
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error('Error:', error));
+    }
+
+    document.getElementById('collect-gobar').addEventListener('click', function () {
+      handleGobarAction(
+      'collect-gobar',
+      'Status: Stirring Gobar...',
+      'Status: Gobar Stirring Complete',
+      9000,
+      { waterPump: 0, stirGobar: 1, nutrition: 0 }
+      );
+    });
+
+    document.getElementById('convey-gobar').addEventListener('click', function () {
+      handleGobarAction(
+      'convey-gobar',
+      'Status: Conveying Gobar...',
+      'Status: Gobar Successfully Conveyed',
+      7000,
+      { waterPump: 0, stirGobar: 0, nutrition: 1 }
+      );
+    });
+
+  </script>
+</body>
+
+</html>

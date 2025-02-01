@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cattle Monitoring Bioacoustics</title>
+    <style>
+        /* Luxurious Theme */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #2c3e50, #34495e);
+            color: #ecf0f1;
+        }
+
+        /* Header */
+        header {
+            background: #1a252f;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+
+        .logout-button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Main Layout */
+        .main-container {
+            display: flex;
+            height: calc(100vh - 90px);
+            padding: 20px;
+        }
+
+        /* Sidebar with Buttons */
+        .sidebar {
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .sidebar a {
+            width: 80%;
+            padding: 20px;
+            text-align: center;
+            margin: 10px 0;
+            border-radius: 10px;
+            font-size: 1.5em;
+            color: white;
+            background: linear-gradient(to right, #16a085, #1abc9c);
+            text-decoration: none;
+            transition: transform 0.2s, background 0.3s;
+            display: block;
+        }
+
+        .sidebar a:hover {
+            transform: scale(1.05);
+            background: linear-gradient(to right, #1abc9c, #16a085);
+        }
+
+        /* Content Area */
+        .content {
+            width: 70%;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin-left: 20px;
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .content h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a252f;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Cattle Monitoring Bioacoustics</h1>
+    <p>Tracking cattle health and behavior through advanced bioacoustic and biometric data</p>
+    <a href="LOGIN.HTML" class="logout-button">Logout</a>
+</header>
+
+<div class="main-container">
+    <!-- Sidebar with Both Buttons -->
+    <div class="sidebar">
+        <a href="cattle.html">🐄 Cattle</a>
+        <a href="farm.html">🌾 Farm</a>
+    </div>
+
+    <!-- Content Area -->
+    <div class="content">
+        <h2>Welcome to Your Dashboard</h2>
+        <p>
+            This is your central hub for monitoring cattle health and farm conditions.
+            With real-time bioacoustic analysis, you can track behavioral patterns,
+            detect abnormalities, and optimize livestock management for better efficiency.
+        </p>
+        <p>
+            Stay updated with live biometric data, temperature monitoring, and other key
+            parameters that ensure the well-being of your cattle.
+        </p>
+    </div>
+</div>
+
+<footer class="footer">
+    <p>© 2025 Cattle Monitoring System. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>

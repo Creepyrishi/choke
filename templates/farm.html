@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Farming Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Smart Farming Dashboard</h1>
+  </header>
+  <main>
+    <section class="sensor-data">
+      <h2>Sensor Data</h2>
+      <div class="sensor-card">
+        <h3>Nutrient Sensor</h3>
+        <p>Current Nutrient Levels: <span id="nutrient-level"></span></p>
+        <p>Recommended Fertilizer: <span id="fertilizer-recommendation"></span></p>
+      </div>
+      <div class="sensor-card">
+        <h3>Moisture Sensor</h3>
+        <p>Soil Moisture: <span id="soil-moisture"></span></p>
+        <p>Recommended Irrigation: <span id="irrigation-recommendation"></span></p>
+      </div>
+      <div class="sensor-card">
+        <h3>Humidity Sensor</h3>
+        <p>Humidity Level: <span id="humidity-level"></span></p>
+      </div>
+    </section>
+    <section class="weather-data">
+      <h2>Weather Data</h2>
+      <div class="weather-card">
+        <h3>Current Conditions</h3>
+        <p>Temperature: <span id="temperature"></span>°C</p>
+        <p>Humidity: <span id="weather-humidity"></span>%</p>
+        <p>Precipitation: <span id="precipitation"></span>mm</p>
+      </div>
+      <div class="weather-card">
+        <h3>Forecast</h3>
+        <p>Next 24 Hours: <span id="weather-forecast"></span></p>
+      </div>
+    </section>
+    <section class="controls">
+      <h2>Control Panel</h2>
+      <button id="irrigation-button">Start Irrigation</button>
+      <button id="fertilizer-button">Apply Fertilizer</button>
+      <button id="collect-gobar">Collect Gobar</button>
+      <button id="convey-gobar">Convey Gobar</button>
+    </section>
+  </main>
+</body>
+</html>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+main {
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+.sensor-data, .weather-data, .controls {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.sensor-card, .weather-card {
+  margin-bottom: 15px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: transform 0.2s;
+}
+
+.sensor-card:hover, .weather-card:hover {
+  transform: scale(1.02);
+}
+
+h2 {
+  color: #4CAF50;
+  margin-bottom: 10px;
+}
+
+h3 {
+  color: #333;
+}
+
+p {
+  margin: 5px 0;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+</style>
+
+
+<script>
+
+  function fetchData() {
+    fetch('http://localhost:5000/data')
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('nutrient-level').textContent = data.nutrientLevel;
+        //document.getElementById('soil-moisture').textContent = data.soilMoisture;
+        document.getElementById('humidity-level').textContent = data.humidityLevel;
+        document.getElementById('temperature').textContent = data.temperature;
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }
+
+  // Fetch data on page load
+  document.addEventListener("DOMContentLoaded", fetchData);
+
+</script>

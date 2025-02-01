@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* Apply background image */
+        body {
+            font-family: 'OSWALD', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-size: cover;
+            color: #0a0000;
+            background-image: url("ed765d44-718c-475b-8664-91c2c9a42302.jpg")
+        }
+        
+
+        /* Login container styling */
+        .login-container {
+            background: rgba(232, 226, 226, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #000000;
+        }
+
+        /* Improved Input Styling */
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #000; /* Black text for readability */
+            font-size: 16px;
+            outline: none;
+        }
+
+        input[type="text"]::placeholder {
+            color: rgba(0, 0, 0, 0.7); /* Darker placeholder for visibility */
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2575fc;
+            color: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #1b5fd9;
+        }
+
+        .error {
+            color: #0f0d0d;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .link {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .link a {
+            color: #25cdfc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .link a:hover {
+            color: #d91b1b;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Enter your 7-digit username" required>
+            <button type="submit">Login</button>
+        </form>
+        <div id="errorMessage" class="error"></div>
+        <div class="link">
+            <a href="#">Forgot Username</a> |<a href="#"> Sign Up</a> 
+             
+        </div>
+
+    </div>
+
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const username = document.getElementById('username').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Check if the username is exactly 7 digits
+            if (/^\d{7}$/.test(username)) {
+                errorMessage.textContent = ''; // Clear error message
+                alert('Login successful! Redirecting...'); // Simulate successful login
+
+                // Redirect to a new page
+                window.location.href = "frontend.html"; // Replace with your actual URL
+            } else {
+                errorMessage.textContent = 'Username must be exactly 7 digits.';
+            }
+        });
+    </script>
+</body>
+</html>
